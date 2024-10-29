@@ -17,11 +17,11 @@ Scalable Data Storage: MongoDB is used to store user information securely and fl
 
 [Node.js](https://nodejs.org/docs/latest/api/): Server-side JavaScript runtime for handling backend logic.
 
-MongoDB: NoSQL database for persisting user data.
+[MongoDB](https://www.mongodb.com/docs/): NoSQL database for persisting user data.
 
-Redis: In-memory data structure store for managing refresh tokens.
+[Redis](https://redis.io/docs/latest/): In-memory data structure store for managing refresh tokens.
 
-JWT (JSON Web Token): Provides token-based authentication for secure access.
+[JWT](https://jwt.io/introduction) (JSON Web Token): Provides token-based authentication for secure access.
 
 
 # Getting Started
