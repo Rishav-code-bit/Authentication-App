@@ -3,6 +3,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "http-errors": "^2.0.0",
+    "mongoose": "^8.7.3",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.7"
   },
@@ -10,7 +11,6 @@
   "description": "This is an authentication app that uses Node.js, MongoDB, Redis, and JWT for secure user authentication with token-based access. This app is structured to manage access tokens and refresh tokens to ensure secure session handling and optimized performance.",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon app.js"
   },
