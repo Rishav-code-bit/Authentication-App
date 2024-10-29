@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const createError = require('http-errors')
 require('dotenv').config()
 
+const AuthRoute = require ('./Routes/Auth.route')
 
 const app = express()
 
@@ -10,10 +11,16 @@ app.get('/', async(req, res, next) => {
     res.send("Hello from express.")
 })
 
+app.use('/auth', AuthRoute)
+
 app.use(async(req,res,next) => {
-    const error = new Error('Not found')
-    error.status = 404
-    next(error)
+    // without create error thing
+    // const error = new Error('Not found')
+    // error.status = 404
+    // next(error)
+
+    // with create error thing
+    next(createError.NotFound())
 })
 
 app.use((err, req, res, next) => {
