@@ -1,41 +1,31 @@
-const express = require ('express')
-const morgan = require('morgan')
-const createError = require('http-errors')
-require('dotenv').config()
+const mongoose = require('mongoose')
 
-const AuthRoute = require ('./Routes/Auth.route')
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    dbName: process.env.DB_NAME,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then(() => {
+    console.log('mongodb connected.')
+  })
+  .catch((err) => console.log(err.message))
 
-const app = express()
-app.use(morgan('dev'))
-
-app.get('/', async(req, res, next) => {
-    res.send("Hello from express.")
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose connected to db')
 })
 
-app.use('/auth', AuthRoute)
-
-app.use(async(req,res,next) => {
-    // without create error thing
-    // const error = new Error('Not found')
-    // error.status = 404
-    // next(error)
-
-    // with create error thing
-    next(createError.NotFound())
+mongoose.connection.on('error', (err) => {
+  console.log(err.message)
 })
 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message,
-        },
-    })
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose connection is disconnected.')
 })
 
-const PORT = process.env.PORT || 3000
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+process.on('SIGINT', async () => {
+  await mongoose.connection.close()
+  process.exit(0)
 })
